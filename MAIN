@@ -1,0 +1,46 @@
+import java.io.FileInputStream
+import java.util.*
+
+fun main () {
+    println("ВЕНИАМИН КАВЕРИН")
+    println("ДВА КАПИТАНА")
+    var popular = ""
+    var count = 0
+    var count1 = 0
+    var count2 = 0
+    var sum = 0
+    val text = FileInputStream("twocapitans.txt")
+    println(text)
+    val sc1 = Scanner(text)
+    val sc2 = Scanner(System.`in`)
+    val line = sc1.nextLine()
+    val wordlist = line.split(" ", ",", ".", "!", "?", "(", ")", "№", "#",
+        ";", ":", "*", "/", "\"", "–", "-", "—", "+", "=", "«", "»" )
+    for (word in wordlist) {
+            count++
+    }
+    println(count)
+    var map = sortedMapOf<String, Int>()
+    for (i in wordlist) {
+        if (i != "") {
+            if (i in map.keys) {
+                map[i] = map[i]?.plus(1) ?: 0
+            } else {
+                map[i] = 1
+            }
+        }
+        else {}
+    }
+    for ((key, value) in map) {
+        if (value > count1) {
+            popular = key
+            count1 = value
+        }
+        sum += value
+        if (value == 1) count2 ++
+    }
+    println("Всего $count слов в тексте")
+    println("Самое популярное слово $popular встречается $count1 раз")
+    println("Доля слов, которые встречаются один раз: ${count2/sum.toDouble()}")
+
+}
